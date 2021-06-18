@@ -18,11 +18,14 @@ namespace YandexDict
 
             var ApiKey = "dict.1.1.20210609T093927Z.888d975cd57427e7.a81c833f63a959024fa47afb7603fd71eec4747f";
 
-           
-
             bot.OnMessage += (s, arg) =>
             {
                 var Word = arg.Message.Text;
+                if(Word == "/help")
+                {
+                    bot.SendTextMessageAsync(arg.Message.Chat.Id, $"Вы можите вводить одно слово на русском - и если все введеное правильно, то вы получаете его синонимы");
+                    return;
+                }
                 var url = $"https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key={ApiKey}&lang=ru-ru&text={Word}";
                 Console.WriteLine($"{arg.Message.Chat.FirstName}: {Word}");
                 var request = WebRequest.Create(url);
